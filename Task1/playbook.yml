@@ -1,0 +1,55 @@
+---
+- name: Task for stapp01
+  hosts: stapp01
+  become: yes
+  tasks:
+
+    - name: Create Empty File
+      ansible.builtin.file:
+        path: /opt/data/blog.txt
+        state: touch
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
+
+    - name: Symlink
+      ansible.builtin.file:
+        src: /opt/data
+        dest: /var/www/html
+        state: link
+      
+- name: Task for stapp02
+  hosts: stapp02
+  become: yes
+  tasks:
+
+    - name: Create Empty File
+      ansible.builtin.file:
+        path: /opt/data/story.txt
+        state: touch
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
+
+    - name: Symlink
+      ansible.builtin.file:
+        src: /opt/data
+        dest: /var/www/html
+        state: link
+      
+- name: Task for stapp03
+  hosts: stapp03
+  become: yes
+  tasks:
+
+    - name: Create Empty File
+      ansible.builtin.file:
+        path: /opt/data/media.txt
+        state: touch
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
+
+    - name: Symlink
+      ansible.builtin.file:
+        src: /opt/data
+        dest: /var/www/html
+        state: link
+      
