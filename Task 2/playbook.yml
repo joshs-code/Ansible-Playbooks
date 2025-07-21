@@ -1,0 +1,50 @@
+- name: ACL Tasks App Server 1
+  hosts: stapp01
+  become: yes
+  tasks:
+    - name: Create blog file
+      ansible.builtin.file:
+        state: touch
+        path: /opt/sysops/blog.txt
+    
+    - name: ACL blog file
+      ansible.posix.acl:
+        path: /opt/sysops/blog.txt
+        entity: tony
+        etype: group
+        permissions: r
+        state: present
+  
+- name: ACL Tasks App Server 2
+  hosts: stapp02
+  become: yes
+  tasks:
+    - name: Create story file
+      ansible.builtin.file:
+        state: touch
+        path: /opt/sysops/story.txt
+    
+    - name: ACL story file
+      ansible.posix.acl:
+        path: /opt/sysops/story.txt
+        entity: steve
+        etype: user
+        permissions: rw
+        state: present
+
+- name: ACL Tasks App Server 3
+  hosts: stapp03
+  become: yes
+  tasks:
+    - name: Create media file
+      ansible.builtin.file:
+        state: touch
+        path: /opt/sysops/media.txt
+    
+    - name: ACL media file
+      ansible.posix.acl:
+        path: /opt/sysops/media.txt
+        entity: banner
+        etype: group
+        permissions: rw
+        state: present
