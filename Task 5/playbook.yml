@@ -1,0 +1,26 @@
+---
+- name: Task 5
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Replace App1
+      ansible.builtin.replace:
+        path: /opt/data/blog.txt
+        regexp: 'xFusionCorp'  
+        replace: 'Nautilus'
+      when: ansible_hostname == "stapp01"
+
+    - name: Replace App2
+      ansible.builtin.replace:
+        path: /opt/data/story.txt
+        regexp: 'Nautilus'  
+        replace: 'KodeKloud'
+      when: ansible_hostname == "stapp02"
+
+    - name: Replace App3
+      ansible.builtin.replace:
+        path: /opt/data/media.txt
+        regexp: 'KodeKloud'  
+        replace: 'xFusionCorp Industries'
+      when: ansible_hostname == "stapp03"
